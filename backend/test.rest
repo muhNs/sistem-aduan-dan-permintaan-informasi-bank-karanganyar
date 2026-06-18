@@ -1,0 +1,58 @@
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin123"
+}
+###
+POST http://localhost:3000/api/v1/users/createUser
+Content-Type: application/json
+
+{
+    "name": "ADMIN",
+    "email": "adminsuper@gmail.com",
+    "password": "admin123",
+    "role": "ADMIN"
+}
+
+###
+POST http://localhost:3000/api/auth/logout/
+Authorization: Bearer {{"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3NzAxMjkwMywiZXhwIjoxNzc3MDk5MzAzfQ.rqpYmcb7i7hIX25caWA2c8Y4wG2YDnntYksSsPTUKp4"}}
+
+### Test untuk endpoint aduan: createComplaint
+POST http://localhost:3000/api/v1/aduan/createComplaint
+Content-Type: application/json
+
+{
+  "nasabah": {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "08123456789",
+    "address": "Jl. Contoh No. 123, Jakarta",
+    "job": "Software Engineer"
+  },
+  "complaint": {
+    "category": "TRANSAKSI",
+    "description": "Saya mengalami masalah dengan transaksi terakhir saya. Uang saya tidak masuk ke rekening tujuan."
+  }
+}
+###
+POST http://localhost:3000/api/v1/information-requests/createInformationRequest
+Content-Type: application/json
+
+{
+  "nasabah": {
+    "name": "Budi Santoso",
+    "email": "budi.santoso@gmail.com",
+    "phone": "081234567890",
+    "address": "Jl. Lawu No. 123, Karanganyar, Jawa Tengah",
+    "job": "Wiraswasta"
+  },
+  "request": {
+    "infoDetail": "Mohon informasi detail mengenai syarat dan prosedur pengajuan Kredit Usaha Rakyat (KUR) untuk tahun 2026 beserta simulasi cicilannya.",
+    "purpose": "Untuk keperluan pengembangan modal usaha UMKM",
+    "infoMethod": "Mendapatkan Salinan",
+    "deliveryMethod": "Email"
+  }
+}

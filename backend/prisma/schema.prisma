@@ -1,0 +1,224 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ENUMS
+
+enum UserRole {
+  ADMIN
+  CS
+}
+
+enum RequestStatus {
+  pending
+  processed
+  completed
+  rejected
+}
+
+enum ComplaintStatus {
+  open
+  in_progress
+  resolved
+  closed
+}
+
+enum ComplaintCategory {
+  TRANSAKSI
+  TABUNGAN
+  AKUN_DAN_KARTU
+  APLIKASI_ERROR
+  PELAYANAN_CABANG
+  INFO_DAN_PROMO
+  LAINNYA
+}
+
+enum PriorityLevel {
+  low
+  medium
+  high
+}
+
+// USERS (ADMIN / CS)
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  // relations
+  requestResponses    InformationRequestResponse[]
+  complaintResolutions ComplaintResolution[]
+  refreshTokens       RefreshToken[]
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+
+  @@index([userId])
+}
+
+// NASABAH (PUBLIC USER)
+
+model Nasabah {
+  id      Int     @id @default(autoincrement())
+  name    String
+  address String
+  job     String?
+  phone   String?
+  email   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  // relations
+  informationRequests InformationRequest[]
+  complaints          Complaint[]
+}
+
+// PERMOHONAN INFORMASI
+
+model InformationRequest {
+  id         Int    @id @default(autoincrement())
+  ticketCode String @unique   // REQ-2026-0001
+
+  nasabahId Int
+  nasabah   Nasabah @relation(fields: [nasabahId], references: [id])
+
+  infoDetail     String @db.LongText
+  purpose        String?
+  infoMethod     String?
+  deliveryMethod String?
+
+  status          RequestStatus @default(pending)
+  responseDueDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  // relations
+  response    InformationRequestResponse?
+  attachments Attachment[]
+}
+
+// RESPONSE PERMOHONAN (1:1)
+
+model InformationRequestResponse {
+  id Int @id @default(autoincrement())
+
+  requestId Int @unique
+  request   InformationRequest @relation(fields: [requestId], references: [id])
+
+  responseMessage String @db.LongText
+
+  respondedBy Int
+  user        User @relation(fields: [respondedBy], references: [id])
+
+  respondedAt DateTime?
+  emailSentAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+// ADUAN
+
+model Complaint {
+  id         Int    @id @default(autoincrement())
+  ticketCode String @unique   // COM-2026-0001
+
+  nasabahId Int
+  nasabah   Nasabah @relation(fields: [nasabahId], references: [id])
+
+  category    ComplaintCategory
+  description String @db.LongText
+
+  status   ComplaintStatus @default(open)
+  priority PriorityLevel   @default(medium)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  // relations
+  resolution  ComplaintResolution?
+  attachments Attachment[]
+}
+
+// RESOLUTION ADUAN (1:1)
+
+model ComplaintResolution {
+  id Int @id @default(autoincrement())
+
+  complaintId Int @unique
+  complaint   Complaint @relation(fields: [complaintId], references: [id])
+
+  resolutionMessage String @db.LongText
+
+  resolvedBy Int
+  user       User @relation(fields: [resolvedBy], references: [id])
+
+  resolvedAt DateTime?
+  emailSentAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  attachments Attachment[]
+}
+
+model TicketSequence {
+  id        Int    @id @default(autoincrement())
+  type      String // 'REQ' atau 'COM'
+  year      Int    // 2026
+  lastValue Int    @default(0)
+
+  // Kombinasi type dan year harus unik agar kita bisa melakukan upsert
+  @@unique([type, year]) 
+}
+
+// ATTACHMENTS
+
+model Attachment {
+  id Int @id @default(autoincrement())
+
+  requestId             Int?
+  complaintId           Int?
+  complaintResolutionId Int? // <--- TAMBAHKAN INI
+
+  request    InformationRequest?  @relation(fields: [requestId], references: [id])
+  complaint  Complaint?           @relation(fields: [complaintId], references: [id])
+  
+  // TAMBAHKAN RELASI INI
+  resolution ComplaintResolution? @relation(fields: [complaintResolutionId], references: [id])
+
+  filePath String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
