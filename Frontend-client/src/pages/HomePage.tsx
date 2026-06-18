@@ -8,6 +8,10 @@ import {
   MapPin,
   Phone,
   Mail,
+  Monitor,
+  Database,
+  Printer,
+  MessageSquare
 } from "lucide-react";
 import imgHeroPerson from "../assets/person.png";
 
@@ -93,70 +97,101 @@ export default function HomePage({ onChangePage }: HomePageProps) {
         </div>
 
         <div id="about" className="mt-32 max-w-5xl mx-auto scroll-mt-28">
-          <h3 className="text-2xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
-            Panduan Penggunaan Sistem
-          </h3>
-          <div className="grid grid-cols-3 gap-3 sm:gap-10">
-            <div className="text-center">
-              <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white border-2 border-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 text-blue-900 shadow-lg">
-                <Edit3 className="w-6 h-6 sm:w-8 sm:h-8" />
+          <div className="text-center mb-10 sm:mb-16">
+            <h3 className="text-xl sm:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 px-2 sm:px-0">
+              Panduan Penggunaan Sistem
+            </h3>
+            <p className="text-gray-500 text-sm sm:text-lg px-4 sm:px-0">
+              Empat langkah mudah dalam menggunakan layanan digital kami
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-8">
+            {/* Tahap 1 */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="flex items-start gap-2 sm:gap-4 mb-2 sm:mb-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white border border-gray-100 rounded-lg sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                  <Monitor className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-xs sm:text-xl leading-tight">Tahap 1</h4>
+                  <p className="text-[8px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase mt-0.5 sm:mt-1">Pengisian Data</p>
+                </div>
               </div>
-              <h4 className="font-bold text-gray-900 mb-2 text-[12px] sm:text-xl whitespace-nowrap">
-                1. Isi Formulir
-              </h4>
-              <p className="text-gray-500 text-[10px] sm:text-base leading-relaxed text-center sm:text-justify">
-                Pilih layanan dan lengkapi data identitas serta rincian
-                permohonan Anda dengan benar.
+              <p className="text-gray-500 text-[9px] sm:text-base leading-relaxed sm:leading-relaxed">
+                Nasabah mengakses web, memilih layanan (Permohonan/Aduan), dan mengisi data serta kontak (nomor WA & Email) berikut lampiran jika ada.
               </p>
             </div>
-            <div className="text-center relative">
-              <div className="absolute top-7 sm:top-10 -left-[20%] w-[40%] h-[2px] bg-gray-200 hidden sm:block"></div>
-              <div className="absolute top-7 sm:top-10 -right-[20%] w-[40%] h-[2px] bg-gray-200 hidden sm:block"></div>
-              <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white border-2 border-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 text-blue-900 shadow-lg relative z-10">
-                <Download className="w-6 h-6 sm:w-8 sm:h-8" />
+
+            {/* Tahap 2 */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="flex items-start gap-2 sm:gap-4 mb-2 sm:mb-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white border border-gray-100 rounded-lg sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                  <Database className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-xs sm:text-xl leading-tight">Tahap 2</h4>
+                  <p className="text-[8px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase mt-0.5 sm:mt-1">Simpan & Ekspor</p>
+                </div>
               </div>
-              <h4 className="font-bold text-gray-900 mb-2 text-[12px] sm:text-xl whitespace-nowrap">
-                2. Unduh Dokumen
-              </h4>
-              <p className="text-gray-500 text-[10px] sm:text-base leading-relaxed text-center sm:text-justify">
-                Sistem otomatis membuat PDF resmi beresolusi tinggi berdasarkan
-                data Anda.
+              <p className="text-gray-500 text-[9px] sm:text-base leading-relaxed sm:leading-relaxed">
+                Data disimpan ke sistem bank (database) dan secara bersamaan di-ekspor otomatis menjadi dokumen PDF siap cetak dengan kop surat bank.
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white border-2 border-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 text-blue-900 shadow-lg">
-                <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" />
+
+            {/* Tahap 3 */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="flex items-start gap-2 sm:gap-4 mb-2 sm:mb-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white border border-gray-100 rounded-lg sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                  <Printer className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-xs sm:text-xl leading-tight">Tahap 3</h4>
+                  <p className="text-[8px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase mt-0.5 sm:mt-1">Penyerahan Fisik</p>
+                </div>
               </div>
-              <h4 className="font-bold text-gray-900 mb-2 text-[12px] sm:text-xl whitespace-nowrap">
-                3. Serahkan Petugas
-              </h4>
-              <p className="text-gray-500 text-[10px] sm:text-base leading-relaxed text-center sm:text-justify">
-                Bawa dokumen yang telah dicetak & ditandatangani ke kantor kami.
+              <p className="text-gray-500 text-[9px] sm:text-base leading-relaxed sm:leading-relaxed">
+                Nasabah mencetak dokumen PDF dan menyerahkan versi fisiknya ke petugas bank.
+              </p>
+            </div>
+
+            {/* Tahap 4 */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="flex items-start gap-2 sm:gap-4 mb-2 sm:mb-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white border border-gray-100 rounded-lg sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                  <MessageSquare className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-xs sm:text-xl leading-tight">Tahap 4 (Backend)</h4>
+                  <p className="text-[8px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase mt-0.5 sm:mt-1">Proses & Notifikasi</p>
+                </div>
+              </div>
+              <p className="text-gray-500 text-[9px] sm:text-base leading-relaxed sm:leading-relaxed">
+                Pihak bank melakukan pengecekan data sistem dan fisik. Setelah diproses (maksimal 10 hari), balasan hasil akhir akan dikirim kembali ke nasabah melalui <strong>pesan WhatsApp</strong> dan <strong>Email</strong> tanpa harus datang lagi.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-40 max-w-4xl mx-auto mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <div className="mt-20 sm:mt-40 max-w-4xl mx-auto mb-16 sm:mb-20">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-4xl font-bold text-gray-900">
               FAQ
             </h2>
-            <p className="text-gray-500 mt-4 text-lg">
+            <p className="text-gray-500 mt-2 sm:mt-4 text-sm sm:text-lg px-4 sm:px-0">
               Pertanyaan yang sering diajukan terkait layanan kami.
             </p>
           </div>
           <div className="space-y-6">
             <details className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-6 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
-                <span className="text-base sm:text-lg">
+              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-4 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
+                <span className="text-sm sm:text-lg pr-4 sm:pr-0">
                   Hal-hal dasar apa yang perlu diketahui?
                 </span>
                 <span className="transition-transform duration-300 group-open:-rotate-180">
-                  <ChevronDown className="w-6 h-6 text-blue-900" />
+                  <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-blue-900 flex-shrink-0" />
                 </span>
               </summary>
-              <div className="text-gray-600 px-6 sm:px-8 pb-6 sm:pb-8 text-sm sm:text-base leading-relaxed border-t border-gray-50 pt-6 mt-2">
+              <div className="text-gray-600 px-4 sm:px-8 pb-4 sm:pb-8 text-xs sm:text-base leading-relaxed border-t border-gray-50 pt-4 sm:pt-6 mt-1 sm:mt-2">
                 Layanan E-Formulir ini memungkinkan Anda untuk mengajukan
                 permohonan informasi dan pengajuan keberatan secara digital.
                 Anda cukup mengisi formulir pada sistem, mengunduh hasilnya
@@ -165,15 +200,15 @@ export default function HomePage({ onChangePage }: HomePageProps) {
               </div>
             </details>
             <details className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-6 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
-                <span className="text-base sm:text-lg">
+              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-4 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
+                <span className="text-sm sm:text-lg pr-4 sm:pr-0">
                   Berapa lama proses penyelesaian aduan?
                 </span>
                 <span className="transition-transform duration-300 group-open:-rotate-180">
-                  <ChevronDown className="w-6 h-6 text-blue-900" />
+                  <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-blue-900 flex-shrink-0" />
                 </span>
               </summary>
-              <div className="text-gray-600 px-6 sm:px-8 pb-6 sm:pb-8 text-sm sm:text-base leading-relaxed border-t border-gray-50 pt-6 mt-2">
+              <div className="text-gray-600 px-4 sm:px-8 pb-4 sm:pb-8 text-xs sm:text-base leading-relaxed border-t border-gray-50 pt-4 sm:pt-6 mt-1 sm:mt-2">
                 Proses penyelesaian atau tindak lanjut permohonan informasi
                 maupun aduan standar biasanya memakan waktu maksimal 10 hari
                 kerja sejak dokumen fisik dan persyaratan Anda diterima dengan
@@ -181,15 +216,15 @@ export default function HomePage({ onChangePage }: HomePageProps) {
               </div>
             </details>
             <details className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-6 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
-                <span className="text-base sm:text-lg">
+              <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-4 sm:p-8 text-gray-900 [&::-webkit-details-marker]:hidden">
+                <span className="text-sm sm:text-lg pr-4 sm:pr-0">
                   Apakah saya perlu login untuk membuat tiket?
                 </span>
                 <span className="transition-transform duration-300 group-open:-rotate-180">
-                  <ChevronDown className="w-6 h-6 text-blue-900" />
+                  <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-blue-900 flex-shrink-0" />
                 </span>
               </summary>
-              <div className="text-gray-600 px-6 sm:px-8 pb-6 sm:pb-8 text-sm sm:text-base leading-relaxed border-t border-gray-50 pt-6 mt-2">
+              <div className="text-gray-600 px-4 sm:px-8 pb-4 sm:pb-8 text-xs sm:text-base leading-relaxed border-t border-gray-50 pt-4 sm:pt-6 mt-1 sm:mt-2">
                 Tidak. Anda tidak perlu membuat akun atau melakukan login.
                 Sistem ini dirancang untuk kemudahan publik. Anda dapat langsung
                 memilih layanan, mengisi formulir yang tersedia, dan mengunduh
