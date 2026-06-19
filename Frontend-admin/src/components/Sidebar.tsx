@@ -2,7 +2,6 @@
 import {
   LayoutDashboard,
   Search,
-  Settings,
   FileText,
   Users,
 } from "lucide-react";
@@ -50,7 +49,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       },
     },
     { path: "/manajemen-user", label: "Manajemen User", icon: Users },
-    { path: "/settings", label: "Setting", icon: Settings },
   ];
 
   return (

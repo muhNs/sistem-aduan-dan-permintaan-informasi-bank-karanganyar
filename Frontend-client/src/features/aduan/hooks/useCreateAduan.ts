@@ -69,10 +69,20 @@ export const useCreateAduan = () => {
       setFiles([]);
 
     } catch (error: any) {
-      console.error("Error submitting aduan:", error);
-      alert(
-        `Gagal mengirim aduan: ${error.response?.data?.message || "Terjadi kesalahan pada server"}`,
-      );
+      console.error("Error submitting aduan:", error.response?.data || error);
+      
+      let errorMsg = error.response?.data?.message || "Terjadi kesalahan pada server";
+      // Jika error 400 (Zod Validation)
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        // Ambil pesan error pertama dari objek errors
+        const firstKey = Object.keys(errors)[0];
+        if (firstKey && errors[firstKey].length > 0) {
+          errorMsg = errors[firstKey][0];
+        }
+      }
+
+      alert(`Gagal mengirim aduan: ${errorMsg}`);
     } finally {
       setIsSubmitting(false);
     }

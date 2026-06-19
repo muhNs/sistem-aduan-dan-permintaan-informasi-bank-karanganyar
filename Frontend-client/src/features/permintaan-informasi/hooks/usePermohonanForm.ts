@@ -86,7 +86,18 @@ export const usePermohonanForm = () => {
       }, 500);
 
     } catch (error: any) {
-      alert(`Gagal memproses permohonan: ${error.response?.data?.message || "Terjadi kesalahan server"}`);
+      console.error("Error submitting permohonan:", error.response?.data || error);
+      
+      let errorMsg = error.response?.data?.message || "Terjadi kesalahan server";
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        const firstKey = Object.keys(errors)[0];
+        if (firstKey && errors[firstKey].length > 0) {
+          errorMsg = errors[firstKey][0];
+        }
+      }
+
+      alert(`Gagal memproses permohonan: ${errorMsg}`);
       setIsGenerating(false);
     }
   };
